@@ -49,5 +49,6 @@ class MainActivity : FlutterActivity() {
         EventChannel(flutterEngine.dartExecutor.binaryMessenger, "com.example.app/smsStream")
             .setStreamHandler(callReceiver)
 
+
     }
 }
