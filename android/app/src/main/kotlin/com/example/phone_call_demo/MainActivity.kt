@@ -46,7 +46,7 @@ class MainActivity : FlutterActivity() {
         }
 
         registerReceiver(callReceiver, IntentFilter("android.intent.action.PHONE_STATE"))
-        EventChannel(flutterEngine.dartExecutor.binaryMessenger, "com.example.app/smsStream")
+        EventChannel(flutterEngine.dartExecutor.binaryMessenger, "com.example.app/callStream")
             .setStreamHandler(callReceiver)
 
 
