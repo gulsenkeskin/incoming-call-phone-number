@@ -32,10 +32,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<bool> getPermission() async {
-    if (await Permission.contacts.status == PermissionStatus.granted) {
+    if (await Permission.phone.status == PermissionStatus.granted) {
       return true;
     } else {
-      if (await Permission.contacts.request() == PermissionStatus.granted) {
+      if (await Permission.phone.request() == PermissionStatus.granted) {
         return true;
       } else {
         return false;
