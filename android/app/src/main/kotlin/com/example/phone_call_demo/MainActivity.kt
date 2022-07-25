@@ -39,25 +39,12 @@ class MainActivity : FlutterActivity() {
                 }
                 if ((state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK))){
                     //açarsa
-                    eventSink?.success("yok-0")
+                    eventSink?.success("-2")
                 }
                 if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)){
                     //kapatırsa
-                    eventSink?.success("yok-0")
+                    eventSink?.success("-0")
                 }
-
-
-//                val telephonyManager =
-//                    context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-//                telephonyManager.registerTelephonyCallback(
-//                    context.mainExecutor,
-//                    object : TelephonyCallback(), TelephonyCallback.CallStateListener {
-//                        override fun onCallStateChanged(state: Int) {
-//                            eventSink?.success("boş-$state")
-//                        }
-//                    }
-//                )
-
 
 
 //                val telephony: TelephonyManager =
