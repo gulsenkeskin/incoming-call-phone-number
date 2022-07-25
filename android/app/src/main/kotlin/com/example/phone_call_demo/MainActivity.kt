@@ -57,10 +57,7 @@ class MainActivity : FlutterActivity() {
                 telephony.listen(object : PhoneStateListener() {
                     override fun onCallStateChanged(state: Int, incomingNumber: String) {
                         super.onCallStateChanged(state, incomingNumber)
-//                        if( TelephonyManager.CALL_STATE_OFFHOOK == state){
                             eventSink?.success("$incomingNumber-$state")
-//                        }
-
                     }
                 }, PhoneStateListener.LISTEN_CALL_STATE)
 
