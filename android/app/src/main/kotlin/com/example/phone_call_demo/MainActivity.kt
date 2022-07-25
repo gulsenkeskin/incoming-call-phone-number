@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.telephony.PhoneStateListener
 import android.telephony.TelephonyManager
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
@@ -12,6 +11,7 @@ import io.flutter.plugin.common.EventChannel
 
 
 class MainActivity : FlutterActivity() {
+
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -26,40 +26,48 @@ class MainActivity : FlutterActivity() {
                 eventSink = null
             }
 
+
             override fun onReceive(p0: Context?, p1: Intent?) {
 
-//                var savedNumber: String? = "yok"
-//                if (p1?.getAction().equals("android.intent.action.NEW_OUTGOING_CALL")) {
-//                    savedNumber = p1?.getExtras().getString("android.intent.extra.PHONE_NUMBER")
-//                } else {
-//                    val stateStr: String? = p1?.getExtras().getString(TelephonyManager.EXTRA_STATE)
-//                    val number: String? =
-//                        p1?.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER)
-//                    var state = 0
-//                    if (stateStr.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
-//                        state = TelephonyManager.CALL_STATE_IDLE
-//                    } else if (stateStr.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
-//                        state = TelephonyManager.CALL_STATE_OFFHOOK
-//                    } else if (stateStr.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
-//                        state = TelephonyManager.CALL_STATE_RINGING
+                val state: String? = p1?.getStringExtra(TelephonyManager.EXTRA_STATE)
+                val incomingNumber: String? =
+                    p1?.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
+
+                if(state.equals(TelephonyManager.EXTRA_STATE_RINGING)){
+                    //çalarsa
+                    eventSink?.success("$incomingNumber-1")
+                }
+                if ((state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK))){
+                    //açarsa
+                    eventSink?.success("yok-0")
+                }
+                if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)){
+                    //kapatırsa
+                    eventSink?.success("yok-0")
+                }
+
+
+//                val telephonyManager =
+//                    context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+//                telephonyManager.registerTelephonyCallback(
+//                    context.mainExecutor,
+//                    object : TelephonyCallback(), TelephonyCallback.CallStateListener {
+//                        override fun onCallStateChanged(state: Int) {
+//                            eventSink?.success("boş-$state")
+//                        }
 //                    }
-//
-//                  eventSink?.success("$state - $number")
-//
-//
-//                }
+//                )
 
 
 
-
-                val telephony: TelephonyManager =
-                    context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-                telephony.listen(object : PhoneStateListener() {
-                    override fun onCallStateChanged(state: Int, incomingNumber: String) {
-                        super.onCallStateChanged(state, incomingNumber)
-                            eventSink?.success("$incomingNumber-$state")
-                    }
-                }, PhoneStateListener.LISTEN_CALL_STATE)
+//                val telephony: TelephonyManager =
+//                    context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+//                telephony.listen(object : PhoneStateListener() {
+//                    override fun onCallStateChanged(state: Int, incomingNumber: String) {
+//                        super.onCallStateChanged(state, incomingNumber)
+//                            eventSink?.success("$incomingNumber-$state")
+//                    }
+//                }, PhoneStateListener.LISTEN_CALL_STATE)
 
             }
         }
@@ -74,4 +82,5 @@ class MainActivity : FlutterActivity() {
 
 
     }
+
 }
