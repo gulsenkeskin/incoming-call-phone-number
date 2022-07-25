@@ -2,6 +2,7 @@
     package="com.example.phone_call_demo">
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
     <application
         android:label="phone_call_demo"
         android:name="${applicationName}"
